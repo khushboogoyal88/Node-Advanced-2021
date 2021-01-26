@@ -1,0 +1,7 @@
+{
+    "readerWriter": "jsonReaderWriter.js",
+    "storageFile":"employees.json",
+    "resource":"/api/employees",
+    "key":"employeeId"
+    
+}
