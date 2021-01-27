@@ -21,7 +21,7 @@ app.use(cors());
 
 app.get("/", (req, res) => res.sendFile(homePath));
 app.get("/bars", (req, res) => res.sendFile(homePath1));
-app.get("/daily", (req, res) => res.sendFile(daily1));
+app.get("/daily1", (req, res) => res.sendFile(daily1));
 app.get("/daily2", (req, res) => res.sendFile(daily2));
 
 app.get("/api/v1/data", async (req, res) => {
