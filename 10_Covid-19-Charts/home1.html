@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        canvas {
+            border: 1px solid blue;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', init);
+
+        function init() {
+            fetch('api/v1/data')
+                .then(result => result.json())
+                .then(data => drawAllBars(data))
+                .catch(err => console.log(err.message))
+        }
+
+        function drawAllBars(data) {
+            const canvasarea = document.getElementById('canvasarea');
+            const ctx = canvasarea.getContext('2d');
+            const casesPerPixel = data[data.length - 1] / (0.9 * canvasarea.height);
+            canvasarea.width = data.length * 3;
+            ctx.translate(0, canvasarea.height);
+            ctx.fillStyle= 'red';
+            for (let i = 0, x = 0; i < data.length; i++, x += 3) {
+                const bar = Math.floor(data[i]/casesPerPixel)
+                ctx.fillRect(x, -bar, 2, bar);
+                
+            }
+            ctx.stroke();
+        }
+    </script>
+
+</head>
+
+<body>
+    <h1>Covid 19 cases - cumulative</h1>
+    <canvas id="canvasarea" width="800" height="500"></canvas>
+
+    <footer>
+        Source:<br>
+        <a href="https://covidapi.info">Covid19 API</a> /
+        <a href="https://mit-license.org">MIT licensed</a><br>
+        <a href="https://github.com/CSSEGISandData/COVID-19">JHU CSSE COVID-19 Data</a> /
+        <a href="https://creativecommons.org/licenses/by/4.0/">license CC 4.0 BY</a>
+    </footer>
+</body>
+
+</html>

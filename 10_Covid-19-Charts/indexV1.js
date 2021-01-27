@@ -13,10 +13,12 @@ const app = express();
 const server = http.createServer(app);
 
 const homePath = path.join(__dirname, "home.html");
+const homePath1 = path.join(__dirname, "home1.html");
 
 app.use(cors());
 
 app.get("/", (req, res) => res.sendFile(homePath));
+app.get("/bars", (req, res) => res.sendFile(homePath1));
 
 app.get("/api/v1/data", async (req, res) => {
   const dateStrings = Object.keys(covidData.result);
@@ -29,6 +31,7 @@ app.get("/api/v1/data", async (req, res) => {
 
   res.json(data);
 });
+
 server.listen(port, host, () => {
   console.log("Server running");
 });
