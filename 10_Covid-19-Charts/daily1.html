@@ -14,7 +14,7 @@
         document.addEventListener('DOMContentLoaded', init);
 
         function init() {
-            fetch('api/v1/data')
+            fetch('api/v1/data/daily')
                 .then(result => result.json())
                 .then(data => drawAllBars(data))
                 .catch(err => console.log(err.message))
@@ -23,7 +23,7 @@
         function drawAllBars(data) {
             const canvasarea = document.getElementById('canvasarea');
             const ctx = canvasarea.getContext('2d');
-            const casesPerPixel = data[data.length - 1] / (0.9 * canvasarea.height);
+            const casesPerPixel = Math.max(...data) / (0.9 * canvasarea.height);
             canvasarea.width = data.length * 3;
             ctx.translate(0, canvasarea.height);
             ctx.fillStyle= 'red';

@@ -14,24 +14,25 @@
         document.addEventListener('DOMContentLoaded', init);
 
         function init() {
-            fetch('api/v1/data')
+            fetch('api/v1/data/daily')
                 .then(result => result.json())
-                .then(data => drawAllBars(data))
+                .then(data => drawCurve(data))
                 .catch(err => console.log(err.message))
         }
 
-        function drawAllBars(data) {
+        function drawCurve(data) {
             const canvasarea = document.getElementById('canvasarea');
             const ctx = canvasarea.getContext('2d');
-            const casesPerPixel = data[data.length - 1] / (0.9 * canvasarea.height);
-            canvasarea.width = data.length * 3;
+            const casesPerPixel = Math.max(...data) / (0.9 * canvasarea.height);
+            canvasarea.width = data.length * 2;
             ctx.translate(0, canvasarea.height);
-            ctx.fillStyle= 'red';
-            for (let i = 0, x = 0; i < data.length; i++, x += 3) {
-                const bar = Math.floor(data[i]/casesPerPixel)
-                ctx.fillRect(x, -bar, 2, bar);
-                
+            ctx.scale(1, -1);
+            ctx.moveTo(0, 0);
+            ctx.strokeStyle = 'blue';
+            for (let i = 0, x = 2; i < data.length; i++, x += 2) {
+                ctx.lineTo(x, Math.floor(data[i] / casesPerPixel));
             }
+            ctx.stroke();
         }
     </script>
 
