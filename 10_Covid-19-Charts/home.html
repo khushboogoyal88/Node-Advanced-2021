@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        canvas{
+            border:1px solid blue;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', init);
+
+        function init(){
+            fetch('api/v1/data')
+            .then(result=>result.json())
+            .then(data=>drawCurve(data))
+            .catch(err => console.log(err.message))
+        }
+
+        function drawCurve(data) {
+                const canvasarea = document.getElementById('canvasarea');
+                const ctx = canvasarea.getContext('2d');
+                const casesPerPixel = data[data.length - 1] / (0.9 * canvasarea.height);
+                canvasarea.width = data.length * 2;
+                ctx.translate(0, canvasarea.height);
+                ctx.scale(1, -1);
+                ctx.moveTo(0, 0);
+                ctx.strokeStyle = 'blue';
+                for (let i = 0, x = 2; i < data.length; i++, x += 2) {
+                    ctx.lineTo(x, Math.floor(data[i] / casesPerPixel));
+                }
+            ctx.stroke();
+        }
+    </script>
+
+</head>
+<body>
+    <h1>Covid 19 cases - cumulative</h1>
+    <canvas id="canvasarea" width="800" height="500"></canvas>
+
+    <footer>
+        Source: <br>
+        <a herf="https://covidapi.info">Covid19API</a>
+    </footer>
+</body>
+</html>

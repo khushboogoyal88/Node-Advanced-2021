@@ -1,16 +1,13 @@
-Create folder
+create a folder
 
-Run 
-```
-npm init -y
-```
+run npm init -y
 
-Install libraries
-```
+install libraries
+
 npm install express node-fetch
-```
-Copy website and vantaaData.json from earlier project.
 
-Create jsonReaderWriter.js for reading and writing vantaaData.json.
+then we copied website and vantaaData.json from earlier projects
 
-Create index.json
+We create jsonReaderWriter for reading and writing vataaData.json
+
+then create index.js

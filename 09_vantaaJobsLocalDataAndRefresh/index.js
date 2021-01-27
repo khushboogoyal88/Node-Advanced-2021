@@ -8,39 +8,39 @@ const fetch = require('node-fetch');
 const port = 3000;
 const host = 'localhost';
 
-const { readStorage, writeStorage } = require('./jsonReaderWriter');
+const { readStorage, writeStorage} = require('./jsonReaderWriter');
 
 const app = express();
-
 const server = http.createServer(app);
 
 const dataPath = 'vantaaData.json';
 
 function checkUpdate() {
-  // here some code to check if it is time to update local data
-  return false; // return true; used only for debugging
+    //here some complicated code to check if it is time to update local data
+    return false; //return true; //only for debugging
 }
 
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'vantaaJobsHome.html')));
+app.get('/', (req,res)=>
+    res.sendFile(path.join(__dirname,'vantaaJobsHome.html')));
 
-// when fetching data from local datafile
-app.get('/json', async (req, res) => {
-  try {
+app.get('/json', async (req,res)=>{  
     if(checkUpdate()) {
-      const result = await fetch('http://gis.vantaa.fi/rest/tyopaikat/v1');
-      const data = await result.json();
-      await writeStorage(dataPath, data);
-      res.json(data);
-      console.log('Updated'); // For debugging. If in upeer part return true --> console: 'Updated', meaning it gets the data from Vantaa API
-;    }
-else {
-  const storage = await readStorage(dataPath);
-  res.json(storage)
-}
-  } 
-  catch (error) {
-    res.sendStatus = 404;   
-  }
-})
+        try {
+            const result = await fetch('http://gis.vantaa.fi/rest/tyopaikat/v1');
+            const data = await result.json();
+            await writeStorage(dataPath,data);
+            res.json(data);
+            console.log('Updated'); //for debug
+        }
+        catch(err) {
+            console.log('update failed', err.message);
+            res.sendStatus = 404;
+        }
+    }
+    else { //see V2 for better solution
+       const storage = await readStorage(dataPath);
+       res.json(storage);
+    }
+});
 
-server.listen(port, host, () => console.log(`Server ${host} running at port ${port}`))
+server.listen(port, host, ()=>console.log(`Server ${host} listens ${port}`));
