@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/styles/styles.css" type="text/css">
+</head>
+<body>
+    <main>
+        <h1>
+            <%= header %>
+        </h1>
+        <form action="<%= action %>" method="POST">
+            <div>
+                <p>
+                    <label for="flowerId">FlowerId: </label>
+                    <input type="text" name="flowerId" id="flowerId"
+                    size="5" value="<%= flowerId.value %>" 
+                    <%= flowerId.readonly %> >
+                </p>
+                <p>
+                    <label for="name">Name: </label>
+                    <input type="text" name="name" id="name" 
+                    size="26" value="<%= name.value %>"
+                    <%=name.readonly %> >
+                </p>
+                <p>
+                    <label for="site">Site: </label>
+                    <input type="text" name="site" id="site" 
+                    size="15" value="<%= site.value %>"
+                    <%=site.readonly %> >
+                </p>
+                <p>
+                    <label for="unitPrice">Unit price: </label>
+                    <input type="text" name="unitPrice" id="unitPrice" 
+                    size="10" value="<%= unitPrice.value %>"
+                    <%=unitPrice.readonly %> >
+                </p>
+                <p>
+                    <label for="stock">Stock: </label>
+                    <input type="text" name="stock" id="stock" 
+                    size="10" value="<%= stock.value %>"
+                    <%=stock.readonly %> >
+                </p>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+        <a href="/"><button>Menu</button></a>
+    </main>  
+</body>
+</html>

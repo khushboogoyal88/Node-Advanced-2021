@@ -1,0 +1,11 @@
+input[readonly]{
+    background-color: lightgray;
+}
+
+.error{
+    border: dashed 2px red;
+}
+
+.info{
+    border: solid 2px green;
+}
